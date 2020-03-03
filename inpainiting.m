@@ -1,34 +1,49 @@
-function [I] = inpainiting(I,maska,ITER,h,dt)
-
+function [sf] = inpainiting(I,maska,ITER,h,dt, method, vi, K)
 %% Parametry inpaintingu
 %%Iloœæ iteracji do wykonania przez program
-[nx, ny] = size(I);
-nz = 3;
+maskaP = imerode(maska, ones(3,3));
 
+[nx, ny] = size(I);
+
+vt = zeros(nx,ny);
+w  = zeros(nx,ny);
+sf = I;
 %% Rozwi¹zanie NS
 for istep = 1 : ITER
-    %% wyznaczenie wirowoœci, Dla R, Theta i Fi
-    [Iy, Ix] = gradient(I,h,h);
-    u = Iy; v = -Ix;
+    sf = Poisson(vt,sf,maska,I,h);
+    [sfy, sfx] = gradient(sf,h,h);
+    u = sfy;
+    v = sfx;
     [uy, ux] = gradient(u,h,h);
     [vy, vx] = gradient(v,h,h);
-    w = vx - uy;
-    [wy, wx] = gradient(w,h,h);
-    uwx = u.*wx;
-    vwy = v.*wy;
-    wnext = w - dt*(uwx+vwy);
-    
-%   tutaj tu mo?na dostawi? dyfuzje anizotropow?
+    vt = vx - uy;
 
-    nextI = Poisson(wnext,I,h);
-    %% Tam gdzie jest maska aktualizujê wartoœci w obrazie
-    for x=1:nx
-        for y=1:ny
-            if(maska(x,y) == 0)
-                I(x,y) = nextI(x,y);
+    for i=2:nx-1
+        for j=2:ny-1
+            if(maskaP(i,j) == 0)
+                w(i,j)=-0.25*((sf(i,j+1)-sf(i,j-1))*(vt(i+1,j)-vt(i-1,j))-(sf(i+1,j)-sf(i-1,j))*(vt(i,j+1)-vt(i,j-1)))/(h*h);
             end
         end
     end
+
+    if method == 1
+        w = w + vi*anisodiff(w,K);
+    end
+    if method == 2
+        w = w + vi*anisodiff2(w,K);
+    end
+    if method == 3
+        w = w + vi*anisodiff2D(w,K);
+    end
+
+    for i=1:nx
+        for j=1:ny
+            if(maska(i,j) == 0)
+                vt(i,j)=vt(i,j)+dt*w(i,j);
+            end
+        end
+    end
+
     if rem(istep,30) == 0 && istep > 29
         istep
     end
