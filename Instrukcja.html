@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+<style>
+* {box-sizing: border-box}
+body {font-family: "Lato", sans-serif;font-size: 14;}
+
+/* Style the tab */
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 30%;
+  height: 1000px;
+}
+
+ul li{
+ font-size:17px;
+ margin-bottom: 8px;
+}
+
+.var {
+  font-weight: bold;
+  font-size: medium;
+}
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 70%;
+  border-left: none;
+  height: 1000px;
+  display: none;
+}
+
+/* Clear floats after the tab */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.Naglowek {
+  background-color: lightblue;
+}
+</style>
+</head>
+<body>
+
+<h2>Praca magisterska - Marek Szweda, algorytmy wmalowywania.</h2>
+<p>Wciśnij przycisk aby wybrać opis algorytmu.</p>
+<p><b>We wszystkich algorytmach maska reprezentowana jest przez kolor idealnie zielony [0,255,0].</b>
+</p>
+
+<div class="tab">
+  <button class="tablinks" onclick="openAlgorithm(event, 'NavierStokes')">Navier Stokes Matlab</button>
+  <button class="tablinks" onclick="openAlgorithm(event, 'NavierStokesStructureTexture')">Navier Stokes z segmentacją na strukturę i teksturę (wszystkie skrypty w matlabie)</button>
+  <button class="tablinks" onclick="openAlgorithm(event, 'NavierStokesStructureTexturePython')">Navier Stokes z segmentacją na strukturę i teksturę (Navier Stokes wykonany w pythonie z OpenCV)</button>
+  <button class="tablinks" onclick="openAlgorithm(event, 'NavierStokesPython')">Navier Stokes wykonany w pythonie z OpenCV</button>
+  <button class="tablinks" onclick="openAlgorithm(event, 'CriminisiMex')">Metoda Criminisi (Exemplar Object Removal)</button>
+  <button class="tablinks" onclick="openAlgorithm(event, 'AutomaticSalientStructure')">Automatyczne wykrywanie struktur i wmalowywanie metodą Criminisi</button>
+</div>
+
+<div id="NavierStokes" class="tabcontent">
+<div class="Naglowek">
+  <h3>Navier Stokes, "Rozdział 3" w pracy magisterskiej</h3>
+  <h3>Nazwa folderu: Navier-Stokes-Matlab</h3>
+  <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: NS.m</h3>
+  <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
+</div>
+  <div>
+    Parametry algorytmu:
+    <ul>
+        <li><div class="var">image</div> nazwa obrazu / ścieżka do obrazu do wczytania - UWAGA - w nazwie bez rozszerzenia.</li>
+        <li><div class="var">schemat</div> 1 - centralny (3.20), 2 - do przodu (3.21) obliczania wirowości</li>
+        <li><div class="var">ITER</div> maksymalna ilość wykonywanych iteracji</li>
+        <li><div class="var">dt</div> parametr ze wzoru (3.21)</li>
+        <li><div class="var">vi</div> parametr dyfuzji anizotropowej, równanie (3.24) </li>
+        <li><div class="var">K</div> parametr dyfuzji anizotropowej (3.7 - tam jako alfa)</li>
+        <li><div class="var">h</div> parametr siatki Eulera (dx = dy = h)</li>
+        <li><div class="var">anisDif</div> 1 - dyfuzja anizotropowa według (3.26), <br> 2 - dyfuzja anizotropowa według (6.5), <br>
+          3 - dyfuzja anizotropowa nie opisana w pracy (niezadawalające wyniki) <br> 
+          4 - oryginalna dla płynów dyfuzja anizotropowa (stabilne dla vi < 0.75) <br> 
+          5 - bez dyfuzji anizotropowej</li>
+    </ul>
+  </div>
+</div>
+
+<div id="NavierStokesStructureTexture" class="tabcontent">
+<div class="Naglowek">
+  <h3>Navier Stokes połączony z metodą Criminisi wypełniania tekstury, "Dział 4.1" w pracy magisterskiej</h3>
+  <h3>Nazwa folderu: Navier-Stokes-Structure-Texture</h3>
+  <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: TSNS.m</h3>
+  <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
+</div>
+  <div>
+    <div>
+      Algorytm to połączenie metody Naviera Stokesa (do wypełniania struktury) z metodą Criminisi (do wypełniania tekstury).
+      Criminisi zawiera plik mex skompilowany i skopiowany z folderu Criminisi-mex. Pliki do wmalowywania na podst. Naviera-Stokesa 
+      pochodzą z folderu Navier-Stokes-Matlab.<br>
+      <b>Folder zawiera algorytm segmentacji obrazów.</b>
+    </div>
+      Parametry algorytmu:
+      <ul>
+        <li><div class="var">imageName</div> nazwa obrazu / ścieżka do obrazu do wczytania. <b>UWAGA - bez rozszerzenia np. bez .png</b></li>
+        <li><div class="var">imageformat</div> format np. .jpg, .png, .bmp</li>
+        <li><div class="var">ITER</div> maksymalna ilość wykonywanych iteracji</li>
+        <li><div class="var">dt</div> parametr ze wzoru (3.21)</li>
+        <li><div class="var">vi</div> parametr dyfuzji anizotropowej, równanie (3.24) </li>
+        <li><div class="var">K</div> parametr dyfuzji anizotropowej (3.7 - tam jako alfa)</li>
+        <li><div class="var">h</div> parametr siatki Eulera (dx = dy = h)</li>
+        <li><div class="var">anisDif</div> 1 - dyfuzja anizotropowa według (3.26), <br> 2 - dyfuzja anizotropowa według (6.5), <br>
+          3 - dyfuzja anizotropowa nie opisana w pracy (niezadawalające wyniki) <br> 
+          4 - oryginalna dla płynów dyfuzja anizotropowa (stabilne dla vi < 0.75) <br> 
+          5 - bez dyfuzji anizotropowej</li>
+        <li><div class="var">p_r</div> rozmiar skrawka uzupełnianego metodą Criminisi <br>
+        p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
+        <li><div class="var">s_r</div> rozmiar okna z którego czerpanę są skrawki o rozmiarze p_r <br>
+        jeśli s_r jest większe niż 9000 program bierzę pod uwagę cały obraz</li>
+        <li><div class="var">alfa</div> parametr równania 5.7 dotyczący "data term" w Criminisi</li>
+        <li><div class="var">lambda</div> Parametr z równania (4.4) dotyczący segmentacji na strukturę i teksturę</li>
+        <li><div class="var">mi</div>W pliku solveUG1G2.m drugi parametr segmentacji, w równaniu (4.14 i 4.15)</li>
+      </ul>
+  </div>
+</div>
+
+<div id="NavierStokesStructureTexturePython" class="tabcontent">
+  <div class="Naglowek">
+    <h3>Navier Stokes połączony z metodą Criminisi wypełniania tekstury, "Dział 4.1" w pracy magisterskiej</h3>
+    <h3>Nazwa folderu: Navier-Stokes-Structure-Texture-Python</h3>
+    <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: TSNS.m</h3>
+    <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
+  </div>
+    <div>
+      <div>
+        Algorytm to połączenie metody Naviera Stokesa (do wypełniania struktury) z wykorzystaniem python i OpenCV z metodą Criminisi (do wypełniania tekstury).
+        Criminisi zawiera plik mex skompilowany i skopiowany z folderu Criminisi-mex.
+        <b>Folder zawiera algorytm segmentacji obrazów.</b>
+      </div>
+        Parametry algorytmu:
+        <ul>
+          <li><div class="var">imageName</div> nazwa obrazu / ścieżka do obrazu do wczytania. <b>UWAGA - bez rozszerzenia np. bez .png</b></li>
+          <li><div class="var">imageformat</div> format np. .jpg, .png, .bmp</li>
+          <li><div class="var">lambda</div> Parametr z równania (4.4) dotyczący segmentacji na strukturę i teksturę</li>
+          <li><div class="var">p_r</div> rozmiar skrawka uzupełnianego metodą Criminisi <br>
+            p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
+          <li><div class="var">s_r</div> rozmiar okna z którego czerpanę są skrawki o rozmiarze p_r <br>
+            jeśli s_r jest większe niż 9000 program bierzę pod uwagę cały obraz</li>
+            <li><div class="var">alfa</div> parametr równania 5.7 dotyczący "data term" w Criminisi</li>
+            <li><div class="var">mi</div>W pliku solveUG1G2.m drugi parametr segmentacji, w równaniu (4.14 i 4.15)</li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+<div id="NavierStokesPython" class="tabcontent">
+  <div class="Naglowek">
+    <h3>Navier Stokes OpenCV Python, wspomniany w rozdziale 7.2.3</h3>
+    <h3>Nazwa folderu: Navier-Stokes-Python</h3>
+    <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: NS.m</h3>
+    <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
+  </div>
+    <div>
+      <div>
+        Algorytm to połączenie metody Naviera Stokesa (do wypełniania struktury) z wykorzystaniem python i OpenCV z metodą Criminisi (do wypełniania tekstury).
+        Criminisi zawiera plik mex skompilowany i skopiowany z folderu Criminisi-mex.
+        <b>Folder zawiera algorytm segmentacji obrazów.</b>
+      </div>
+        Parametry algorytmu:
+        <ul>
+          <li><div class="var">imgName</div> nazwa obrazu / ścieżka do obrazu do wczytania.</li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+<div id="CriminisiMex" class="tabcontent">
+  <div class="Naglowek">
+    <h3>Metoda Criminisi (Exemplar Object Removal) z rozdziału 5.1</h3>
+    <h3>Nazwa folderu: Criminisi-mex</h3>
+    <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: Criminisi2004Color.m</h3>
+    <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
+  </div>
+    <div>
+      <div>
+        Algorytm to połączenie metody Naviera Stokesa (do wypełniania struktury) z wykorzystaniem python i OpenCV z metodą Criminisi (do wypełniania tekstury).
+        Criminisi zawiera plik mex skompilowany i skopiowany z folderu Criminisi-mex.
+        <b>Folder zawiera algorytm segmentacji obrazów.</b>
+      </div>
+        Parametry algorytmu:
+        <ul>
+          <li><div class="var">imageName</div> nazwa obrazu / ścieżka do obrazu do wczytania.</li>
+          <li><div class="var">p_r</div> rozmiar skrawka uzupełnianego metodą Criminisi <br>
+          p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
+          <li><div class="var">s_r</div> rozmiar okna z którego czerpanę są skrawki o rozmiarze p_r <br>
+          jeśli s_r jest większe niż 9000 program bierzę pod uwagę cały obraz, <b>jeśli jest mniejsze działa zgodnie z modyfikacją
+          w dziale 6.2.1</b></li>
+          <li><div class="var">alfa</div> parametr równania 5.7 dotyczący "data term" w Criminisi</li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+<div id="AutomaticSalientStructure" class="tabcontent">
+  <div class="Naglowek">
+    <h3>Automatyczne wykrywanie struktur -> wmalowywanie Criminisi, opisane w podrozdziale 5.2.2 </h3>
+    <h3>Nazwa folderu: Automatic-Salient-Structure-Crim-Inpainting</h3>
+    <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: SalientStructure.m</h3>
+    <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
+  </div>
+    <div>
+      <div>
+        <b>Algorytm automatycznego wykrywania struktur implementuje metodę segmentacji obrazu "K means segmentation"
+        i wyznaczania dystansu metodą IOCCD posegmentowanych skrawków.</b>
+        <b>Folder zawiera algorytm segmentacji obrazów.</b>
+      </div>
+        Parametry algorytmu:
+        <ul>
+          <li><div class="var">imageName</div> nazwa obrazu / ścieżka do obrazu do wczytania.</li>
+          <li><div class="var">sigma</div> parametr rozmycia obrazu filtrem Gaussa w celu wyznaczenia głównych linii</li>
+          <li><div class="var">alfa</div> parametr równania 5.7 dotyczący "data term" w Criminisi</li>
+          <li><div class="var">Patch_size</div> rozmiar skrawka obrazu tworzonego w pukcie środka głównej linii, dalej segmentowanego 
+            w celu wyznaczenia podobieństwa do innej głównej struktury<br>
+          <li><div class="var">patch_size</div> rozmiar skrawka uzupełnianego metodą Criminisi <br>
+          p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
+          <li><div class="var">mainColors</div>Liczba głównych kolorów na jakie zostanie posegmentowany skrawek obrazu (Patch_size)</li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+
+<div class="clearfix"></div>
+<script>
+function openAlgorithm(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+   
+</body>
+</html> 
