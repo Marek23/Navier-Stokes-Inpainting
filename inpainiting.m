@@ -25,18 +25,18 @@ for istep = 1 : ITER
     end
 
     sf = newsf;
-    [sfy, sfx] = gradient(sf,h,h);
+    [sfy, sfx] = boundGradient(sf,maska,h);
     u = sfy;
     v = -sfx;
-    [uy, ux] = gradient(u,h,h);
-    [vy, vx] = gradient(v,h,h);
+    [uy, ux] = boundGradient(u,maska,h);
+    [vy, vx] = boundGradient(v,maska,h);
     vt = vx - uy;
     
     %%schemat centralny
     if schemat == 1
         for i=2:nx-1
             for j=2:ny-1
-                if(maskaP(i,j) == 0)
+                if maskaP(i,j) == 0
                     w(i,j)=-0.25*(u(i,j)*(vt(i+1,j)-vt(i-1,j))+v(i,j)*(vt(i,j+1)-vt(i,j-1)))/(h*h);
                 end
             end
