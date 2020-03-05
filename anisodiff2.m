@@ -20,5 +20,4 @@ for x=2:nx-1
             -(g(x,y-1)-g(x,y))*(we(x,y)-we(x,y-1)));
     end
 end
-wo;
 end

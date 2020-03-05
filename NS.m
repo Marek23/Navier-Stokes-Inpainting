@@ -1,10 +1,11 @@
-%% parametry algorytmu
-image  = 'test_small.png';
-ITER   = 1000;
-dt     = 0.1;
-vi     = 2;
-K      = 10^-3;
-method = 9;
+%% parametry algorytmu zadawane przez u?ytkownika
+image   = 'test_small.png';
+schemat = 2; % 1 - schemat centralny, 2 - schemat upwind
+ITER    = 300;
+dt      = 1;
+vi      = 2;
+K       = 10^-12;
+anisDif = 1;
 %%
 I = im2double(imread(image));
 
@@ -30,9 +31,9 @@ R = R.*(maska); T = T.*(maska); F = F.*(maska);
 
 %% realizacja 3 algorytmów inpaintingu dla ka¿dej warstwy
 tic
-R = inpainiting(R,maska,ITER,h,dt,method,vi,K);
-T = inpainiting(T,maska,ITER,h,dt,method,vi,K);
-F = inpainiting(F,maska,ITER,h,dt,method,vi,K);
+R = inpainiting(R,maska,ITER,h,dt,anisDif,vi,K,schemat);
+T = inpainiting(T,maska,ITER,h,dt,anisDif,vi,K,schemat);
+F = inpainiting(F,maska,ITER,h,dt,anisDif,vi,K,schemat);
 tns = toc;
 
 %% konwersja do obrazu kolorowego
