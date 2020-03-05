@@ -1,5 +1,5 @@
 %% parametry algorytmu zadawane przez u?ytkownika
-image   = 'test_small.png';
+image   = 'test.png';
 schemat = 2; % 1 - schemat centralny, 2 - schemat upwind
 ITER    = 201;
 dt      = 1;
