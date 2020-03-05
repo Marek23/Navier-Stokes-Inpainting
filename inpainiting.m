@@ -1,4 +1,4 @@
-function [sf] = inpainiting(I,maska,ITER,h,dt, method, vi, K, schemat)
+function [sf] = inpainiting(I,maska,ITER,h,dt, anisDif, vi, K, schemat)
 %% Parametry inpaintingu
 %%Iloœæ iteracji do wykonania przez program
 maskaP = imerode(imerode(maska, ones(3,3)),ones(3,3));
@@ -18,6 +18,7 @@ for istep = 1 : ITER
             CH=CH+abs(newsf(i,j)-sf(i,j));
         end
     end
+
     if CH <= 0.01
         sf = newsf;
         break %stop gdy spe³niony warunek
@@ -53,19 +54,26 @@ for istep = 1 : ITER
         end
     elseif schemat == 2
         for i=2:nx-1
-            for j=2:ny-1 % compute
+            for j=2:ny-1
                 w(i,j)=-0.25*(abs(u(i,j))*(vt(i+sign(u(i,j)),j)-vt(i,j))+abs(v(i,j))*(vt(i,j+sign(v(i,j)))-vt(i,j)))/(h*h);
             end
         end
     end
-    if method == 1
+    if anisDif == 1
         w = w + vi*anisodiff(w,K);
     end
-    if method == 2
+    if anisDif == 2
         w = w + vi*anisodiff2(w,K);
     end
-    if method == 3
+    if anisDif == 3
         w = w + vi*anisodiff2D(w,K);
+    end
+    if anisDif == 4
+        for i=2:nx-1
+            for j=2:ny-1 % compute
+                w(i,j) = w(i,j) +vi*(vt(i+1,j)+vt(i-1,j)+vt(i,j+1)+vt(i,j-1)-4.0*vt(i,j))/(h*h);
+            end
+        end
     end
 
     for i=1:nx

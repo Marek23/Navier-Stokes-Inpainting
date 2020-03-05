@@ -1,16 +1,16 @@
 %% parametry algorytmu zadawane przez u?ytkownika
 image   = 'test_small.png';
 schemat = 2; % 1 - schemat centralny, 2 - schemat upwind
-ITER    = 300;
+ITER    = 201;
 dt      = 1;
-vi      = 2;
+vi      = 0.75;
 K       = 10^-12;
-anisDif = 1;
+h=1;
+anisDif = 5;
 %%
 I = im2double(imread(image));
 
 [nx, ny, nz] = size(I);
-h=1;
 
 maska  = double(1-((I(:,:,1) < 0.03) & ...
                  ( I(:,:,2) > 0.9)  & ...
