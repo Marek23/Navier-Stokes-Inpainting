@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,11 +85,16 @@ ul li{
   <button class="tablinks" onclick="openAlgorithm(event, 'NavierStokesPython')">Navier Stokes wykonany w pythonie z OpenCV</button>
   <button class="tablinks" onclick="openAlgorithm(event, 'CriminisiMex')">Metoda Criminisi (Exemplar Object Removal)</button>
   <button class="tablinks" onclick="openAlgorithm(event, 'AutomaticSalientStructure')">Automatyczne wykrywanie struktur i wmalowywanie metodą Criminisi</button>
+  <button class="tablinks" onclick="openAlgorithm(event, 'NLCTVMatlab')">Oryginalny algorytm NLCTV</button>
+  <button class="tablinks" onclick="openAlgorithm(event, 'NLCTVMatlabApproximation')">Uproszczony algorytm NLCTV</button>
+  <button class="tablinks" onclick="openAlgorithm(event, 'NLCTVMexWeightMod')">Uproszczony algorytm NLCTV z możliwością modyfikacji wagi napisany w .c</button>
+  <button class="tablinks" onclick="openAlgorithm(event, 'CrimNLCTVWeight')">Metoda Criminisi bazująca na funkcji wagi NLCTV</button>
 </div>
 
 <div id="NavierStokes" class="tabcontent">
 <div class="Naglowek">
-  <h3>Navier Stokes, "Rozdział 3" w pracy magisterskiej</h3>
+  <h3>Navier Stokes</h3>
+  <h3>Rozdział 3 w pracy magisterskiej</h3>
   <h3>Nazwa folderu: Navier-Stokes-Matlab</h3>
   <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: NS.m</h3>
   <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
@@ -113,7 +119,8 @@ ul li{
 
 <div id="NavierStokesStructureTexture" class="tabcontent">
 <div class="Naglowek">
-  <h3>Navier Stokes połączony z metodą Criminisi wypełniania tekstury, "Dział 4.1" w pracy magisterskiej</h3>
+  <h3>Navier Stokes połączony z metodą Criminisi wypełniania tekstury</h3>
+  <h3>Dział 4.1 w pracy magisterskiej</h3>
   <h3>Nazwa folderu: Navier-Stokes-Structure-Texture</h3>
   <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: TSNS.m</h3>
   <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
@@ -142,7 +149,7 @@ ul li{
         p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
         <li><div class="var">s_r</div> rozmiar okna z którego czerpanę są skrawki o rozmiarze p_r <br>
         jeśli s_r jest większe niż 9000 program bierzę pod uwagę cały obraz</li>
-        <li><div class="var">alfa</div> parametr równania 5.7 dotyczący "data term" w Criminisi</li>
+        <li><div class="var">alfa</div> parametr równania (5.7) dotyczący "data term" w Criminisi</li>
         <li><div class="var">lambda</div> Parametr z równania (4.4) dotyczący segmentacji na strukturę i teksturę</li>
         <li><div class="var">mi</div>W pliku solveUG1G2.m drugi parametr segmentacji, w równaniu (4.14 i 4.15)</li>
       </ul>
@@ -151,7 +158,8 @@ ul li{
 
 <div id="NavierStokesStructureTexturePython" class="tabcontent">
   <div class="Naglowek">
-    <h3>Navier Stokes połączony z metodą Criminisi wypełniania tekstury, "Dział 4.1" w pracy magisterskiej</h3>
+    <h3>Navier Stokes połączony z metodą Criminisi wypełniania tekstury</h3>
+    <h3>Dział 4.1 w pracy magisterskiej</h3>
     <h3>Nazwa folderu: Navier-Stokes-Structure-Texture-Python</h3>
     <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: TSNS.m</h3>
     <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
@@ -171,7 +179,7 @@ ul li{
             p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
           <li><div class="var">s_r</div> rozmiar okna z którego czerpanę są skrawki o rozmiarze p_r <br>
             jeśli s_r jest większe niż 9000 program bierzę pod uwagę cały obraz</li>
-            <li><div class="var">alfa</div> parametr równania 5.7 dotyczący "data term" w Criminisi</li>
+            <li><div class="var">alfa</div> parametr równania (5.7) dotyczący "data term" w Criminisi</li>
             <li><div class="var">mi</div>W pliku solveUG1G2.m drugi parametr segmentacji, w równaniu (4.14 i 4.15)</li>
         </ul>
       </div>
@@ -180,17 +188,13 @@ ul li{
 
 <div id="NavierStokesPython" class="tabcontent">
   <div class="Naglowek">
-    <h3>Navier Stokes OpenCV Python, wspomniany w rozdziale 7.2.3</h3>
+    <h3>Navier Stokes OpenCV Python</h3>
+    <h3>Wspomniane w rozdziale 7.2.3 w pracy magisterskiej</h3>
     <h3>Nazwa folderu: Navier-Stokes-Python</h3>
     <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: NS.m</h3>
     <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
   </div>
     <div>
-      <div>
-        Algorytm to połączenie metody Naviera Stokesa (do wypełniania struktury) z wykorzystaniem python i OpenCV z metodą Criminisi (do wypełniania tekstury).
-        Criminisi zawiera plik mex skompilowany i skopiowany z folderu Criminisi-mex.
-        <b>Folder zawiera algorytm segmentacji obrazów.</b>
-      </div>
         Parametry algorytmu:
         <ul>
           <li><div class="var">imgName</div> nazwa obrazu / ścieżka do obrazu do wczytania.</li>
@@ -201,16 +205,15 @@ ul li{
 
 <div id="CriminisiMex" class="tabcontent">
   <div class="Naglowek">
-    <h3>Metoda Criminisi (Exemplar Object Removal) z rozdziału 5.1</h3>
+    <h3>Metoda Criminisi (Exemplar Object Removal)</h3>
+    <h3>Rozdziału 5.1 w pracy magisterskiej</h3>
     <h3>Nazwa folderu: Criminisi-mex</h3>
     <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: Criminisi2004Color.m</h3>
     <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
   </div>
     <div>
       <div>
-        Algorytm to połączenie metody Naviera Stokesa (do wypełniania struktury) z wykorzystaniem python i OpenCV z metodą Criminisi (do wypełniania tekstury).
-        Criminisi zawiera plik mex skompilowany i skopiowany z folderu Criminisi-mex.
-        <b>Folder zawiera algorytm segmentacji obrazów.</b>
+        Skrypt uruchamiany w Matlabie napisany w .c i kompilowany przez mex.
       </div>
         Parametry algorytmu:
         <ul>
@@ -220,7 +223,7 @@ ul li{
           <li><div class="var">s_r</div> rozmiar okna z którego czerpanę są skrawki o rozmiarze p_r <br>
           jeśli s_r jest większe niż 9000 program bierzę pod uwagę cały obraz, <b>jeśli jest mniejsze działa zgodnie z modyfikacją
           w dziale 6.2.1</b></li>
-          <li><div class="var">alfa</div> parametr równania 5.7 dotyczący "data term" w Criminisi</li>
+          <li><div class="var">alfa</div> parametr równania (5.7) dotyczący "data term" w Criminisi</li>
         </ul>
       </div>
     </div>
@@ -228,7 +231,8 @@ ul li{
 
 <div id="AutomaticSalientStructure" class="tabcontent">
   <div class="Naglowek">
-    <h3>Automatyczne wykrywanie struktur -> wmalowywanie Criminisi, opisane w podrozdziale 5.2.2 </h3>
+    <h3>Automatyczne wykrywanie struktur -> wmalowywanie Criminisi</h3>
+    <h3>Opisane w podrozdziale 5.2.2</h3>
     <h3>Nazwa folderu: Automatic-Salient-Structure-Crim-Inpainting</h3>
     <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: SalientStructure.m</h3>
     <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
@@ -236,14 +240,13 @@ ul li{
     <div>
       <div>
         <b>Algorytm automatycznego wykrywania struktur implementuje metodę segmentacji obrazu "K means segmentation"
-        i wyznaczania dystansu metodą IOCCD posegmentowanych skrawków.</b>
-        <b>Folder zawiera algorytm segmentacji obrazów.</b>
+        i wyznaczania dystansu metodą IOCCD posegmentowanych skrawków. Wszystko napisane w plikach .m</b>
       </div>
         Parametry algorytmu:
         <ul>
           <li><div class="var">imageName</div> nazwa obrazu / ścieżka do obrazu do wczytania.</li>
           <li><div class="var">sigma</div> parametr rozmycia obrazu filtrem Gaussa w celu wyznaczenia głównych linii</li>
-          <li><div class="var">alfa</div> parametr równania 5.7 dotyczący "data term" w Criminisi</li>
+          <li><div class="var">alfa</div> parametr równania (5.7) dotyczący "data term" w Criminisi</li>
           <li><div class="var">Patch_size</div> rozmiar skrawka obrazu tworzonego w pukcie środka głównej linii, dalej segmentowanego 
             w celu wyznaczenia podobieństwa do innej głównej struktury<br>
           <li><div class="var">patch_size</div> rozmiar skrawka uzupełnianego metodą Criminisi <br>
@@ -254,7 +257,120 @@ ul li{
     </div>
 </div>
 
+<div id="NLCTVMatlab" class="tabcontent">
+  <div class="Naglowek">
+    <h3>Oryginalny algorytm NLCTV</h3>
+    <h3>Opisane w podrozdziale 4.2</h3>
+    <h3>Nazwa folderu: NLCTV-Matlab</h3>
+    <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: NLCTV.m</h3>
+    <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
+  </div>
+    <div>
+      <div>
+        <b>Wszystko napisane w Matlabie</b>
+      </div>
+        Parametry algorytmu:
+        <ul>
+          <li><div class="var">imageName</div> nazwa obrazu / ścieżka do obrazu do wczytania.</li>
+          <li><div class="var">p_r</div> rozmiar skrawka obrazu p_x (Rysunek 4.2 w pracy magisterskiej)<br>
+            p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
+          <li><div class="var">s_r</div> rozmiar skrawka obrazu N_x, rysunek 4.3</li>
+          <li><div class="var">lamda</div> parametr "ksi_z" z równania (4.55)</li>
+          <li><div class="var">sigma</div> odchylenie standardowe dla tworzenia filtru Gaussa, macierzy 2D - równania (4.28)</li>
+          <li><div class="var">r</div> parametr z równania (4.26) dotyczący funkcji wagi</li>
+        </ul>
+      </div>
+    </div>
+</div>
 
+<div id="NLCTVMatlabApproximation" class="tabcontent">
+  <div class="Naglowek">
+    <h3>Uproszczony algorytm NLCTV</h3>
+    <h3>Opisane w podrozdziale 6.3.2 w pracy magisterskiej</h3>
+    <h3>Nazwa folderu: NLCTV-Matlab-approximation</h3>
+    <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: NLCTV.m</h3>
+    <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie początkowej output...</h3>
+  </div>
+    <div>
+      <div>
+        <b>Wszystko napisane w Matlabie</b>
+      </div>
+        Parametry algorytmu:
+        <ul>
+          <li><div class="var">imageName</div> nazwa obrazu / ścieżka do obrazu do wczytania.</li>
+          <li><div class="var">p_r</div> rozmiar skrawka obrazu p_x (Rysunek 4.2 w pracy magisterskiej)<br>
+            p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
+          <li><div class="var">s_r</div> rozmiar skrawka obrazu N_x, rysunek 4.3</li>
+          <li><div class="var">lamda</div> parametr "ksi_z" z równania (4.55)</li>
+          <li><div class="var">sigma</div> odchylenie standardowe dla tworzenia filtru Gaussa, macierzy 2D - równania (4.28)</li>
+          <li><div class="var">r</div> parametr z równania (4.26) dotyczący funkcji wagi</li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+<div id="NLCTVMexWeightMod" class="tabcontent">
+  <div class="Naglowek">
+    <h3>Uproszczony algorytm NLCTV z opcją modyfikacji funkcji wagi</h3>
+    <h3>Opisane w podrozdziale 6.3.1 w pracy</h3>
+    <h3>Nazwa folderu: NLCTV-mex-weight-modification</h3>
+    <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: NLCTV.m</h3>
+    <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie output...</h3>
+  </div>
+    <div>
+      <div>
+        <b>
+          Cała metoda jest napisana w języku .c i kompilowana przez mex </br>
+          W algorytmie dodano możliwość włączenia modyfikacji opisanej w rozdziale 6.3.1.</br>
+          Jeśli użytkownik ustawi parametr sw na 0 badź 1 algorytm zachowa się identycznie jak w 
+          zakładce "Uproszczony algorytm NLCTV" (tylko jest szybszy, bo napisany w .c).
+        </b>
+      </div>
+        Parametry algorytmu:
+        <ul>
+          <li><div class="var">imageName</div> nazwa obrazu / ścieżka do obrazu do wczytania.</li>
+          <li><div class="var">p_r</div> rozmiar skrawka obrazu p_x (Rysunek 4.2 w pracy magisterskiej)<br>
+            p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
+          <li><div class="var">s_r</div> rozmiar skrawka obrazu N_x, rysunek 4.3</li>
+          <li><div class="var">lamda</div> parametr "ksi_z" z równania (4.55)</li>
+          <li><div class="var">sigma</div> odchylenie standardowe dla tworzenia filtru Gaussa, macierzy 2D - równania (4.28)</li>
+          <li><div class="var">r</div> parametr z równania (4.26) dotyczący funkcji wagi</li>
+          <li><div class="var">sw</div> parametr s(.) z równania (6.8) dotyczący funkcji wagi powiększenia jej zakresu</li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+<div id="CrimNLCTVWeight" class="tabcontent">
+  <div class="Naglowek">
+    <h3>Połączenie metody Criminisi z funkcją wagi</h3>
+    <h3>Opisany w rozdziale 6.4 w pracy magisterskiej</h3>
+    <h3>Nazwa folderu: Crim-NLCTV-Weight</h3>
+    <h3>Nazwa głównego pliku do uruchamiania algorytmu w folderze: NLCTV.m</h3>
+    <h3>Obraz wynikowy zapisywany w tym samym folderze o nazwie output...</h3>
+  </div>
+    <div>
+      <div>
+        <b>
+          Cała metoda jest napisana w języku .c i kompilowana przez mex, stanowi implementację rozwiązania z rozdziału 6.4</br>
+          W algorytmie także dodano możliwość włączenia modyfikacji opisanej w rozdziale 6.3.1:</br>
+          - jeśli użytkownik ustawi parametr sw na 0 badź 1 algorytm nie zmieni sposobu liczenia wagi.
+        </b>
+      </div>
+        Parametry algorytmu:
+        <ul>
+          <li><div class="var">imageName</div> nazwa obrazu / ścieżka do obrazu do wczytania.</li>
+          <li><div class="var">p_r</div> rozmiar skrawka obrazu p_x (Rysunek 4.2 w pracy magisterskiej)<br>
+            p_r oznacza połowę poku kwadratu ("promień obszaru")</li>
+          <li><div class="var">s_r</div> rozmiar skrawka obrazu N_x, rysunek 4.3</li>
+          <li><div class="var">lamda</div> parametr "ksi_z" z równania (4.55)</li>
+          <li><div class="var">sigma</div> odchylenie standardowe dla tworzenia filtru Gaussa, macierzy 2D - równania (4.28)</li>
+          <li><div class="var">r</div> parametr z równania (4.26) dotyczący funkcji wagi</li>
+          <li><div class="var">sw</div> parametr s(.) z równania (6.8) dotyczący funkcji wagi powiększenia jej zakresu</li>
+        </ul>
+      </div>
+    </div>
+</div>
 <div class="clearfix"></div>
 <script>
 function openAlgorithm(evt, cityName) {
